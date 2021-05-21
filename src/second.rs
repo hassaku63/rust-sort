@@ -50,4 +50,22 @@ mod tests {
 
         assert_eq!(x, vec![330, 110, 30, 21, 20, 11, 10, 4]);
     }
+
+    #[test]
+    fn sort_str_ascending() {
+        let mut x = vec!["Rust", "is", "fast", "and", "momory-efficient", "with", "no", "GC"];
+
+        sort(&mut x, true);
+
+        assert_eq!(x, vec!["GC", "Rust", "and", "fast", "is", "memory-efficient", "no", "with"]);
+    }
+
+    #[test]
+    fn sort_str_descending() {
+        let mut x = vec!["Rust", "is", "fast", "and", "momory-efficient", "with", "no", "GC"];
+
+        sort(&mut x, false);
+
+        assert_eq!(x, vec!["with", "no", "memory-efficient", "is", "fast", "and","Rust", "GC"]);
+    }
 }
