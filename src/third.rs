@@ -79,6 +79,12 @@ fn compare_and_swap<T, F>(x: &mut[T], forward: bool, comparator: &F)
 mod tests {
     use super::{sort, sort_by};
     use crate::SortOrder::{Ascending as Asc, Descending as Desc};
+    use crate::utils::{
+        new_u32_vec,
+        is_sorted_ascending,
+        is_sorted_descending,
+        is_sorted
+    };
 
     #[test]
     fn sort_u32_ascending() {
@@ -155,7 +161,7 @@ mod tests {
 
     #[test]
     fn sort_students_by_age_ascending() {
-        let taro = Student::new("Trao", "Yamada", 16);
+        let taro = Student::new("Taro", "Yamada", 16);
         let hanako = Student::new("Hanako", "Yamada", 14);
         let kyoko = Student::new("Kyoko", "Ito", 15);
         let ryosuke = Student::new("Ryosuke", "Hayashi", 17);
@@ -178,14 +184,14 @@ mod tests {
 
     #[test]
     fn sort_students_by_name_ascending() {
-        let taro = Student::new("Trao", "Yamada", 16);
+        let taro = Student::new("Taro", "Yamada", 16);
         let hanako = Student::new("Hanako", "Yamada", 14);
         let kyoko = Student::new("Kyoko", "Ito", 15);
         let ryosuke = Student::new("Ryosuke", "Hayashi", 17);
 
         let mut x = vec![&taro, &hanako, &kyoko, &ryosuke];
 
-        let expected = vec![&taro, &hanako, &kyoko, &ryosuke];
+        let expected = vec![&ryosuke, &kyoko, &hanako, &taro];
 
         assert_eq!(
             sort_by(&mut x, 
@@ -196,5 +202,27 @@ mod tests {
         );
 
         assert_eq!(x, expected);
+    }
+
+    #[test]
+    fn sort_u32_large() {
+        {
+            let mut x =  new_u32_vec(65536);
+
+            assert_eq!(
+                sort(&mut x, &Asc),
+                Ok(()));
+            
+            assert!(is_sorted(&x, &Asc));
+        }
+        {
+            let mut x =  new_u32_vec(65536);
+
+            assert_eq!(
+                sort(&mut x, &Desc),
+                Ok(()));
+            
+            assert!(is_sorted(&x, &Desc));
+        }
     }
 }
