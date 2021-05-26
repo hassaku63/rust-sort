@@ -1,14 +1,14 @@
 # README
 
-出典: [実践Rustプログラミング入門](https://www.amazon.co.jp/dp/B08PF27TRZ)
+出典: [実践Rust入門　[言語仕様から開発手法まで]](https://www.amazon.co.jp/dp/B07QVQ7RDG)
 
 Bitonic-sort の実装
 
+学習ログ: [Zenn.dev scrap - Rust に入門した その2](https://zenn.dev/hassaku63/scraps/453a3e4da99ee20)
 
 ## Memo
 
 雑多にメモする
-
 
 ### step 2
 
