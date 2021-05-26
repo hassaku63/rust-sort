@@ -1,5 +1,5 @@
 use super::SortOrder;
-use std::cmp::Ordering;
+use std::{cmp::Ordering, thread};
 
 
 pub fn sort<T: Ord>(x: &mut [T], order: &SortOrder) -> Result<(), String> {
@@ -81,8 +81,8 @@ mod tests {
     use crate::SortOrder::{Ascending as Asc, Descending as Desc};
     use crate::utils::{
         new_u32_vec,
-        is_sorted_ascending,
-        is_sorted_descending,
+        // is_sorted_ascending,
+        // is_sorted_descending,
         is_sorted
     };
 
