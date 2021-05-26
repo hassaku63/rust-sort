@@ -196,6 +196,31 @@ par_sort: sorted 268435456 integers in 51.209880452 seconds
 speed up: 3.16x
 ```
 
+2^29 elements
+
+```plain
+$ cargo run --release --example benchmark -- 29
+    Finished release [optimized] target(s) in 0.10s
+     Running `target/release/examples/benchmark 29`
+sorting 536870912 integers (2048.0 MB)
+cpu info: 4 physical cores, 8 logical cores
+seq_sort: sorted 536870912 integers in 347.513755494 seconds
+par_sort: sorted 536870912 integers in 105.172578288 seconds
+speed up: 3.30x
+```
+
+2^30 elements
+
+```plain
+$ cargo run --release --example benchmark -- 30
+    Finished release [optimized] target(s) in 0.10s
+     Running `target/release/examples/benchmark 30`
+sorting 1073741824 integers (4096.0 MB)
+cpu info: 4 physical cores, 8 logical cores
+seq_sort: sorted 1073741824 integers in 754.570826508 seconds
+par_sort: sorted 1073741824 integers in 222.240794225 seconds
+speed up: 3.40x
+```
 
 Number of elements<br />(2^n count) | sequential sort<br/>duration (sec) | parallel sort<br/>duration (sec)
 :--- | :--- | :---
@@ -203,3 +228,5 @@ Number of elements<br />(2^n count) | sequential sort<br/>duration (sec) | paral
 26 | 36.801756354 | 10.808363674
 27 | 76.727949211 | 25.940408823
 28 | 162.043424973 | 51.209880452
+29 | 347.513755494 | 105.172578288
+30 | 754.570826508 | 222.240794225
