@@ -137,3 +137,69 @@ error[E0524]: two closures require unique access to `x` at the same time
 これは、2つのクロージャで、同じ変数に対して可変参照を渡しているのが所有権システム的にアウトだと言っている。
 
 これの対策として、子スレッドに渡す前に x を分割しておけばOK、という考え方ができる。これは vecter の `slice_as_mut()` を使えばOK。
+
+### step 5
+
+ベンチマーク実装。手元の Mac で実行してみたらこんな感じだった。すべて n=1 なので性能指標はあくまで参考程度に。
+
+2^25 elements
+
+```plain
+$ cargo run --release --example benchmark -- 25
+    Finished release [optimized] target(s) in 0.11s
+     Running `target/release/examples/benchmark 25`
+sorting 33554432 integers (128.0 MB)
+cpu info: 4 physical cores, 8 logical cores
+seq_sort: sorted 33554432 integers in 17.714332883 seconds
+par_sort: sorted 33554432 integers in 4.838593842 seconds
+speed up: 3.66x
+```
+
+2^26 elements
+
+```plain
+$ cargo run --release --example benchmark -- 26
+
+   Compiling rust-sort v0.1.0 (/path/to/project/rust-sort)
+    Finished release [optimized] target(s) in 1.00s
+     Running `target/release/examples/benchmark 26`
+sorting 67108864 integers (256.0 MB)
+cpu info: 4 physical cores, 8 logical cores
+seq_sort: sorted 67108864 integers in 36.801756354 seconds
+par_sort: sorted 67108864 integers in 10.808363674 seconds
+speed up: 3.40x
+```
+
+2^27 elements
+
+```plain
+$ cargo run --release --example benchmark -- 27
+    Finished release [optimized] target(s) in 0.11s
+     Running `target/release/examples/benchmark 27`
+sorting 134217728 integers (512.0 MB)
+cpu info: 4 physical cores, 8 logical cores
+seq_sort: sorted 134217728 integers in 76.727949211 seconds
+par_sort: sorted 134217728 integers in 25.940408823 seconds
+speed up: 2.96x
+```
+
+2^28 elements
+
+```plain
+$ cargo run --release --example benchmark -- 28
+    Finished release [optimized] target(s) in 0.03s
+     Running `target/release/examples/benchmark 28`
+sorting 268435456 integers (1024.0 MB)
+cpu info: 4 physical cores, 8 logical cores
+seq_sort: sorted 268435456 integers in 162.043424973 seconds
+par_sort: sorted 268435456 integers in 51.209880452 seconds
+speed up: 3.16x
+```
+
+
+Number of elements<br />(2^n count) | sequential sort<br/>duration (sec) | parallel sort<br/>duration (sec)
+:--- | :--- | :---
+25 | 17.714332883 | 4.838593842
+26 | 36.801756354 | 10.808363674
+27 | 76.727949211 | 25.940408823
+28 | 162.043424973 | 51.209880452
