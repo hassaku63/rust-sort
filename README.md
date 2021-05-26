@@ -136,4 +136,4 @@ error[E0524]: two closures require unique access to `x` at the same time
 
 これは、2つのクロージャで、同じ変数に対して可変参照を渡しているのが所有権システム的にアウトだと言っている。
 
-これの対策として、子スレッドに渡す前に x を分割しておけばOK、という考え方ができる。
+これの対策として、子スレッドに渡す前に x を分割しておけばOK、という考え方ができる。これは vecter の `slice_as_mut()` を使えばOK。
