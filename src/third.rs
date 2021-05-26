@@ -1,5 +1,5 @@
 use super::SortOrder;
-use std::{cmp::Ordering, thread};
+use std::{cmp::Ordering};
 
 
 pub fn sort<T: Ord>(x: &mut [T], order: &SortOrder) -> Result<(), String> {
