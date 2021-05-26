@@ -1,6 +1,7 @@
 use std::{time, thread};
 
 
+#[allow(dead_code)]
 fn main() {
     let n1 = 1200;
     let n2 = 1000;
@@ -18,6 +19,7 @@ fn main() {
     }
 }
 
+#[allow(dead_code)]
 fn heavy(name: &str, n: u64) -> u64 {
     println!("{}: started", name);
 
